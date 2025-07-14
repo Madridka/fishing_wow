@@ -4,7 +4,7 @@ import pyautogui
 import time
 
 # Загружаем шаблон
-template = cv2.imread("bobber.png", 0)
+template = cv2.imread("bobber2.png", 0)
 w, h = template.shape[::-1]
 
 # Координаты области поиска
@@ -20,7 +20,7 @@ def search_bobber():
 
     print(f"[DEBUG] match quality: {max_val:.4f}")  # отладка
 
-    if max_val >= 0.5:
+    if max_val >= 0.4:
         top_left = max_loc
         bottom_right = (top_left[0] + template.shape[1], top_left[1] + template.shape[0])
         cv2.rectangle(screen_gray, top_left, bottom_right, 255, 2)
