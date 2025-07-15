@@ -7,8 +7,17 @@ import time
 TEMPLATE_PATHS = [
     "bobber_large.png",
     "bobber_mid.png",
-    "bobber_small.png"
+    "bobber_small.png",
+    "bobber_very_small.png"
 ]
+
+movement_speed= 20000
+value_to_click = 0.45
+time_for_wait = 15
+time_to_screen = 0.1
+time_to_run_bot = 3
+wait_time_after_run = 1.5
+sleep_before_click = 0.8
 
 # Координаты области поиска (x, y, w, h)
 SEARCH_REGION = (0, 0, 800, 600)
@@ -38,7 +47,7 @@ def search_bobber():
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
         print(f"[DEBUG] {name}: match quality = {max_val:.4f}")
 
-        if max_val > best_val and max_val >= 0.45:
+        if max_val > best_val and max_val >= value_to_click: #const
             top_left = max_loc
             center = (top_left[0] + template.shape[1] // 2, top_left[1] + template.shape[0] // 2)
             best_val = max_val
@@ -62,10 +71,10 @@ def detect_bite(center_pos):
     prev_gray = cv2.cvtColor(np.array(prev_frame), cv2.COLOR_RGB2GRAY)
 
     start_time = time.time()
-    timeout = 15
+    timeout = time_for_wait #const
 
     while time.time() - start_time < timeout:
-        time.sleep(0.1)
+        time.sleep(time_to_screen) #const
         curr_frame = pyautogui.screenshot(region=region)
         curr_gray = cv2.cvtColor(np.array(curr_frame), cv2.COLOR_RGB2GRAY)
 
@@ -75,7 +84,7 @@ def detect_bite(center_pos):
         movement = np.sum(thresh)
         print(f"[DEBUG] movement: {movement}")
 
-        if movement > 25000:
+        if movement > movement_speed: #const
             return True
 
         prev_gray = curr_gray
@@ -84,11 +93,11 @@ def detect_bite(center_pos):
 
 def main():
     print("⏳ Запуск через 3 секунды...")
-    time.sleep(3)
+    time.sleep(time_to_run_bot) #const
 
     while True:
         pyautogui.press('1')  # заброс
-        time.sleep(1.5)
+        time.sleep(wait_time_after_run) #const
 
         pos = search_bobber()
         if pos:
@@ -98,7 +107,7 @@ def main():
             print("🕵️ Ждём клёва...")
             if detect_bite(pos):
                 print("🐟 КЛЁВ! Кликаем!")
-                time.sleep(0.5)
+                time.sleep(sleep_before_click) #const
                 pyautogui.rightClick()
             else:
                 print("⌛ Клёва не было.")
