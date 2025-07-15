@@ -13,6 +13,7 @@ TEMPLATE_PATHS = [
 # Координаты области поиска (x, y, w, h)
 SEARCH_REGION = (0, 0, 800, 600)
 
+
 def load_templates():
     templates = []
     for path in TEMPLATE_PATHS:
@@ -22,6 +23,7 @@ def load_templates():
         else:
             print(f"[WARNING] Шаблон не загружен: {path}")
     return templates
+
 
 def search_bobber():
     x, y, w, h = SEARCH_REGION
@@ -40,17 +42,20 @@ def search_bobber():
 
         if max_val > best_val and max_val >= 0.45:
             top_left = max_loc
-            center = (top_left[0] + template.shape[1] // 2, top_left[1] + template.shape[0] // 2)
+            center = (top_left[0] + template.shape[1] // 2,
+                      top_left[1] + template.shape[0] // 2)
             best_val = max_val
             best_center = (x + center[0], y + center[1])
 
             # Отрисовка для дебага
-            cv2.rectangle(screen_gray, top_left, (top_left[0] + template.shape[1], top_left[1] + template.shape[0]), 255, 2)
+            cv2.rectangle(screen_gray, top_left, (
+                top_left[0] + template.shape[1], top_left[1] + template.shape[0]), 255, 2)
 
     cv2.imshow("Поиск поплавка", screen_gray)
     cv2.waitKey(1)
 
     return best_center
+
 
 def detect_bite(center_pos):
     region_size = 100
@@ -82,6 +87,7 @@ def detect_bite(center_pos):
 
     return False
 
+
 def main():
     print("⏳ Запуск через 3 секунды...")
     time.sleep(3)
@@ -106,6 +112,7 @@ def main():
             print("❌ Поплавок не найден.")
 
         time.sleep(2)
+
 
 if __name__ == "__main__":
     main()
