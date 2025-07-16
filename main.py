@@ -10,13 +10,13 @@ TEMPLATE_PATHS = [
     "bobber_small.png",
     "bobber_very_small.png"
 ]
-
 movement_speed= 20000
 value_to_click = 0.45
 time_for_wait = 15
 time_to_screen = 0.1
 time_to_run_bot = 3
 wait_time_after_run = 1.5
+button = '3'
 sleep_before_click = 0.8
 
 # Координаты области поиска (x, y, w, h)
@@ -102,7 +102,7 @@ def main():
     time.sleep(time_to_run_bot) #const
 
     while True:
-        pyautogui.press('1')  # заброс
+        pyautogui.press(button)  # заброс #const
         time.sleep(wait_time_after_run) #const
 
         pos = search_bobber()
