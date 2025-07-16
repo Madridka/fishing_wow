@@ -107,7 +107,7 @@ def detect_bite(center_pos):
         _, thresh = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
 
         movement = np.sum(thresh)
-        # print(f"[DEBUG] movement: {movement}")
+        print(f"[DEBUG] movement: {movement}")
 
         if movement == 0:
             zero_movement_count += 1
