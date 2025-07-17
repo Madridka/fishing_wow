@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import pyautogui
 import time
-import datetime
+# import datetime
 
 # Пути к шаблонам поплавка разных размеров
 TEMPLATE_PATHS = [
@@ -13,13 +13,12 @@ TEMPLATE_PATHS = [
     "5.png",
     "6.png",
     "7.png",
-    "8.png",
 ]
 movement_speed = 20000
-value_to_click = 0.40
+value_to_click = 0.45
 time_for_wait = 15
 time_to_screen = 0.1
-time_to_run_bot = 3
+time_to_run_bot = 2
 wait_time_after_run = 1.5
 button_with_rod = '3'
 sleep_before_click = 0.8
@@ -28,17 +27,17 @@ sleep_after_bait = 10
 
 # Координаты области поиска (x, y, w, h)
 SEARCH_REGION = (0, 0, 800, 600)
-last_z_press = None
+# last_z_press = None
 
 
-def check_and_press_z():
-    global last_z_press
-    now = datetime.datetime.now()
-    if last_z_press is None or (now - last_z_press).total_seconds() >= time_to_bait:
-        print("⌛ 15 минут прошло — нажимаем 2")
-        pyautogui.press('2')
-        time.sleep(sleep_after_bait)
-        last_z_press = now
+# def check_and_press_z():
+#     global last_z_press
+#     now = datetime.datetime.now()
+#     if last_z_press is None or (now - last_z_press).total_seconds() >= time_to_bait:
+#         print("⌛ 15 минут прошло — нажимаем 2")
+#         pyautogui.press('2')
+#         time.sleep(sleep_after_bait)
+#         last_z_press = now
 
 
 def load_templates():
@@ -131,7 +130,7 @@ def main():
     time.sleep(time_to_run_bot)  # const
 
     while True:
-        check_and_press_z()
+        # check_and_press_z()
         pyautogui.press(button_with_rod)  # заброс #const
         time.sleep(wait_time_after_run)  # const
 
